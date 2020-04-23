@@ -1,3 +1,11 @@
+% function mchar_setdefaults(app)
+%
+% Assigns preset values to the components on the M Characteristic
+% dashboard.
+% 
+% This code is part of the Memristor and RRAM Plot Tool Program.
+% By John Smith, 2020
+
 function mchar_setdefaults(app)
 
 app.MinAmpField_mchar.Value = 0;

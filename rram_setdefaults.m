@@ -1,3 +1,11 @@
+% function rram_setdefaults(app)
+%
+% Assigns preset values to the parameter fields in the RRAM
+% dashboard.
+% 
+% This code is part of the Memristor and RRAM Plot Tool Program.
+% By John Smith, 2020
+
 function rram_setdefaults(app)
 
 if app.rramTechnology == "ChargeControlled"

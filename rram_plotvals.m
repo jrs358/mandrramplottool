@@ -1,7 +1,16 @@
-function rram_plotvals(app, type)
+% function rram_plotvals(app, plottype)
+%
+% Plots the data in the app.vals.rram structure on the GUI axes.
+% 
+% This code is part of the Memristor and RRAM Plot Tool Program.
+% By John Smith, 2020
+
+
+function rram_plotvals(app, plottype)
 
 close all
 
+% Assign values in the app.vals.rram structure to variables
 q_or_phi = app.vals.rram.x;
 t = app.vals.rram.t;
 
@@ -17,7 +26,9 @@ linewidth = 1.5;
 legendLocation = 'best';
 legendOrientation = 'vertical';
 
-if type == "internal"
+% Sets the target axes to an external figure window, or an internal GUI
+% axes.
+if plottype == "internal"
     Charge_FluxAxis = app.TopLeftAxis;
     CurrentVoltageAxis = app.TopRightAxis;
     TimeAxis1 = app.BottomLeftAxis;
@@ -33,7 +44,7 @@ if type == "internal"
     reset(TimeAxis1);
     reset(TimeAxis2);
    
-elseif type == "external"
+elseif plottype == "external"
     figure(1)
     Charge_FluxAxis = axes();
     figure(2)
@@ -62,82 +73,105 @@ xlabel(TimeAxis1, 'Time (units of \pi)')
 xlabel(TimeAxis2, 'Time (units of \pi)')
 
 if app.ConstEqCheckBox_rram.Value == 1
-    plot(Charge_FluxAxis, q_or_phi, constrel, 'k', 'linewidth', linewidth, 'DisplayName','Constitutive Relation');
+    plot(Charge_FluxAxis, q_or_phi, constrel, 'k', ...
+        'linewidth', linewidth, 'DisplayName','Constitutive Relation');
 end
 
 if app.CondResCheckBox_x_rram.Value == 1
     if app.rramTechnology == "ChargeControlled"
-        plot(Charge_FluxAxis, q_or_phi, Rq_Gphi, 'r', 'linewidth', linewidth, 'DisplayName','Resistance (\Omega)');
+        plot(Charge_FluxAxis, q_or_phi, Rq_Gphi, 'r', ...
+            'linewidth', linewidth, 'DisplayName','Resistance (\Omega)');
     elseif app.rramTechnology == "FluxControlled"
-        plot(Charge_FluxAxis, q_or_phi, Rq_Gphi, 'r', 'linewidth', linewidth, 'DisplayName','Conductance (S)');
+        plot(Charge_FluxAxis, q_or_phi, Rq_Gphi, 'r', ...
+            'linewidth', linewidth, 'DisplayName','Conductance (S)');
     end
 end
 
 if app.viHysCheckBox_rram.Value == 1
     if app.rramTechnology == "ChargeControlled"
-        plot(CurrentVoltageAxis, it, vt, 'k', 'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
+        plot(CurrentVoltageAxis, it, vt, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
     elseif app.rramTechnology == "FluxControlled"
-        plot(CurrentVoltageAxis, vt, it, 'k', 'linewidth', linewidth, 'DisplayName', 'Current (A)');
+        plot(CurrentVoltageAxis, vt, it, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Current (A)');
     end
 end
 
 if app.R_GHysCheckBox_rram.Value == 1
     if app.rramTechnology == "ChargeControlled"
-        plot(CurrentVoltageAxis, it, Rt_Gt, 'r', 'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
+        plot(CurrentVoltageAxis, it, Rt_Gt, 'r', ...
+            'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
     elseif app.rramTechnology == "FluxControlled"
-        plot(CurrentVoltageAxis, vt, Rt_Gt, 'r', 'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
+        plot(CurrentVoltageAxis, vt, Rt_Gt, 'r', ...
+            'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
     end
 end
 
 if app.ChargeCheckBox1_rram.Value == 1
-    plot(TimeAxis1, t/pi, qt, 'r', 'linewidth', linewidth, 'DisplayName', 'Charge (C)');
+    plot(TimeAxis1, t/pi, qt, 'r', ...
+        'linewidth', linewidth, 'DisplayName', 'Charge (C)');
 end
 
 if app.CurrentCheckBox1_rram.Value == 1
-    plot(TimeAxis1, t/pi, it, 'b', 'linewidth', linewidth, 'DisplayName', 'Current (A)');
+    plot(TimeAxis1, t/pi, it, 'b', ...
+        'linewidth', linewidth, 'DisplayName', 'Current (A)');
 end
 
 if app.FluxCheckBox1_rram.Value == 1
-    plot(TimeAxis1, t/pi, phit, 'm', 'linewidth', linewidth, 'DisplayName', 'Flux (Vm)');
+    plot(TimeAxis1, t/pi, phit, 'm', ...
+        'linewidth', linewidth, 'DisplayName', 'Flux (Vm)');
 end
 
 if app.VoltageCheckBox1_rram.Value == 1
-    plot(TimeAxis1, t/pi, vt, 'g', 'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
+    plot(TimeAxis1, t/pi, vt, 'g', ...
+        'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
 end
 
 if app.CondResCheckBox_t1_rram.Value == 1
     if app.rramTechnology == "ChargeControlled"
-        plot(TimeAxis1, t/pi, Rt_Gt, 'k', 'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
+        plot(TimeAxis1, t/pi, Rt_Gt, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
     elseif app.rramTechnology == "FluxControlled"
-        plot(TimeAxis1, t/pi, Rt_Gt, 'k', 'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
+        plot(TimeAxis1, t/pi, Rt_Gt, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
     end
 end
 
 if app.ChargeCheckBox2_rram.Value == 1
-    plot(TimeAxis2, t/pi, qt, 'r', 'linewidth', linewidth, 'DisplayName', 'Charge (C)');
+    plot(TimeAxis2, t/pi, qt, 'r', ...
+        'linewidth', linewidth, 'DisplayName', 'Charge (C)');
 end
 
 if app.CurrentCheckBox2_rram.Value == 1
-    plot(TimeAxis2, t/pi, it, 'b', 'linewidth', linewidth, 'DisplayName', 'Current (A)');
+    plot(TimeAxis2, t/pi, it, 'b', ...
+        'linewidth', linewidth, 'DisplayName', 'Current (A)');
 end
 
 if app.FluxCheckBox2_rram.Value == 1
-    plot(TimeAxis2, t/pi, phit, 'm', 'linewidth', linewidth, 'DisplayName', 'Flux (Vm)');
+    plot(TimeAxis2, t/pi, phit, 'm', ...
+        'linewidth', linewidth, 'DisplayName', 'Flux (Vm)');
 end
 
 if app.VoltageCheckBox2_rram.Value == 1
-    plot(TimeAxis2, t/pi, vt, 'g', 'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
+    plot(TimeAxis2, t/pi, vt, 'g', ...
+        'linewidth', linewidth, 'DisplayName', 'Voltage (V)');
 end
 
 if app.CondResCheckBox_t2_rram.Value == 1
     if app.rramTechnology == "ChargeControlled"
-        plot(TimeAxis2, t/pi, Rt_Gt, 'k', 'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
+        plot(TimeAxis2, t/pi, Rt_Gt, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Resistance (\Omega)');
     elseif app.rramTechnology == "FluxControlled"
-        plot(TimeAxis2, t/pi, Rt_Gt, 'k', 'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
+        plot(TimeAxis2, t/pi, Rt_Gt, 'k', ...
+            'linewidth', linewidth, 'DisplayName', 'Conductance (S)');
     end
 end
 
-legend(Charge_FluxAxis, 'location', legendLocation, 'orientation', legendOrientation);
-legend(CurrentVoltageAxis, 'location', legendLocation, 'orientation', legendOrientation);
-legend(TimeAxis1, 'location', legendLocation, 'orientation', legendOrientation);
-legend(TimeAxis2, 'location', legendLocation, 'orientation', legendOrientation);
+legend(Charge_FluxAxis, 'location', legendLocation,...
+    'orientation', legendOrientation);
+legend(CurrentVoltageAxis, 'location', legendLocation, ...
+    'orientation', legendOrientation);
+legend(TimeAxis1, 'location', legendLocation,...
+    'orientation', legendOrientation);
+legend(TimeAxis2, 'location', legendLocation,...
+    'orientation', legendOrientation);

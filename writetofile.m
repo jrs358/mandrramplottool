@@ -1,3 +1,10 @@
+% function writetofile(app)
+%
+% Outputs the current simulation data to a .csv file for external usage.
+% 
+% This code is part of the Memristor and RRAM Plot Tool Program.
+% By John Smith, 2020
+
 function writetofile(app)
 
 if app.simulationOption == "mchar"
@@ -38,6 +45,5 @@ elseif app.simulationOption == "rram"
     writetable(xvals, 'rram_xvals.csv');
     writetable(tvals, 'rram_tvals.csv');
 
-    
 end
 
